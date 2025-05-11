@@ -1,19 +1,8 @@
 import React from 'react';
-// TODO: Exercice 3 - Importer useTheme
-// TODO: Exercice 4 - Importer useIntersectionObserver
+import { useTheme } from '../context/ThemeContext';
+import useIntersectionObserver from '../hooks/useIntersectionObserver';
 import LoadingSpinner from './LoadingSpinner';
 
-/**
- * Composant d'affichage de la liste des posts
- * @param {Object} props - Propriétés du composant
- * @param {Array} props.posts - Liste des posts à afficher
- * @param {boolean} props.loading - Indicateur de chargement
- * @param {boolean} props.hasMore - Indique s'il y a plus de posts à charger
- * @param {Function} props.onLoadMore - Fonction pour charger plus de posts
- * @param {Function} props.onPostClick - Fonction appelée au clic sur un post
- * @param {Function} props.onTagClick - Fonction appelée au clic sur un tag
- * @param {boolean} props.infiniteScroll - Mode de défilement infini activé ou non
- */
 function PostList({
   posts = [],
   loading = false,
@@ -23,39 +12,118 @@ function PostList({
   onTagClick,
   infiniteScroll = true
 }) {
-  // TODO: Exercice 3 - Utiliser le hook useTheme
-  
-  // TODO: Exercice 4 - Utiliser useIntersectionObserver pour le défilement infini
-  
-  // TODO: Exercice 3 - Utiliser useCallback pour les gestionnaires d'événements
-  const handlePostClick = (post) => {
+  const { theme } = useTheme();
+ 
+  const [loaderRef, isVisible] = useIntersectionObserver({
+    enabled: infiniteScroll && hasMore && !loading,
+    threshold: 0.5,
+    rootMargin: '100px'
+  });
+
+  React.useEffect(() => {
+    if (isVisible && hasMore && !loading && infiniteScroll) {
+      onLoadMore();
+    }
+  }, [isVisible, hasMore, loading, onLoadMore, infiniteScroll]);
+ 
+  const handlePostClick = React.useCallback((post) => {
     if (onPostClick) {
       onPostClick(post);
     }
-  };
-  
-  const handleTagClick = (e, tag) => {
-    e.stopPropagation(); // Éviter de déclencher le clic sur le post
+  }, [onPostClick]);
+ 
+  const handleTagClick = React.useCallback((e, tag) => {
+    e.stopPropagation();
     if (onTagClick) {
       onTagClick(tag);
     }
+  }, [onTagClick]);
+
+  const renderReactions = (reactions) => {
+    if (!reactions) return null;
+    
+    if (typeof reactions === 'number') {
+      return (
+        <div className="reactions-total">
+          <i className="bi bi-heart-fill"></i> {reactions}
+        </div>
+      );
+    }
+    
+    return (
+      <div className="reactions-split">
+        <div className="reaction like">
+          <i className="bi bi-hand-thumbs-up-fill"></i> {reactions.likes || 0}
+        </div>
+        <div className="reaction dislike">
+          <i className="bi bi-hand-thumbs-down-fill"></i> {reactions.dislikes || 0}
+        </div>
+      </div>
+    );
   };
-  
-  // TODO: Exercice 1 - Gérer le cas où il n'y a pas de posts
-  
+ 
+  if (!loading && posts.length === 0) {
+    return (
+      <div className={`empty-state ${theme}`}>
+        <i className="bi bi-file-earmark-text"></i>
+        <p>Aucun article trouvé</p>
+      </div>
+    );
+  }
+ 
   return (
-    <div className="post-list">
-      {/* TODO: Exercice 1 - Afficher la liste des posts */}
-      
-      {/* Afficher le spinner de chargement */}
+    <div className={`post-list ${theme}`}>
+      <div className="posts-container">
+        {posts.map(post => (
+          <article 
+            key={post.id}
+            className={`post-card ${theme}`}
+            onClick={() => handlePostClick(post)}
+          >
+            <div className="post-content">
+              <div className="post-header">
+                <h3>{post.title}</h3>
+                <div className="post-meta">
+                  <span className="user-info">
+                    <i className="bi bi-person-circle"></i> User #{post.userId}
+                  </span>
+                  {renderReactions(post.reactions)}
+                </div>
+              </div>
+              <p className="post-excerpt">{post.body.substring(0, 120)}...</p>
+              <div className="post-footer">
+                <div className="tags">
+                  {post.tags?.map((tag, idx) => (
+                    <span 
+                      key={idx}
+                      className="tag"
+                      onClick={(e) => handleTagClick(e, tag)}
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+     
       {loading && <LoadingSpinner />}
-      
-      {/* TODO: Exercice 4 - Ajouter la référence pour le défilement infini */}
-      
-      {/* TODO: Exercice 1 - Ajouter le bouton "Charger plus" pour le mode non-infini */}
+     
+      {infiniteScroll && hasMore && 
+        <div ref={loaderRef} className="load-more-indicator">
+          {!loading && <span>Chargement en cours...</span>}
+        </div>
+      }
+     
+      {!infiniteScroll && hasMore && !loading && (
+        <button className={`load-more-btn ${theme}`} onClick={onLoadMore}>
+          <i className="bi bi-plus-circle"></i> Voir plus d'articles
+        </button>
+      )}
     </div>
   );
 }
 
-// TODO: Exercice 3 - Utiliser React.memo pour optimiser les rendus
-export default PostList;
+export default React.memo(PostList);

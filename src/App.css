@@ -55,3 +55,317 @@ body,
 }
 
 /* TODO: Exercice 3 - Ajouter des styles spécifiques au mode sombre */
+/* Style général */
+.post-list {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.posts-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
+}
+
+/* Style des cartes */
+.post-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.post-image-placeholder {
+  height: 160px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 2rem;
+}
+
+.post-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  margin-bottom: 15px;
+}
+
+.post-header h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.post-excerpt {
+  color: #555;
+  line-height: 1.5;
+  margin: 10px 0;
+  flex-grow: 1;
+}
+
+.post-footer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+/* Métadonnées */
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Réactions */
+.reactions-split {
+  display: flex;
+  gap: 10px;
+}
+
+.reaction {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.reaction.like {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.reaction.dislike {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.reactions-total {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background-color: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  background: #f0f0f0;
+  color: #555;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+/* Bouton charger plus */
+.load-more-btn {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 25px;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.load-more-btn:hover {
+  background: #e0e0e0;
+}
+
+.load-more-btn i {
+  margin-right: 8px;
+}
+
+/* Indicateur de chargement */
+.load-more-indicator {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+/* État vide */
+.empty-state {
+  text-align: center;
+  padding: 50px 20px;
+  color: #666;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+/* Thème sombre */
+.post-list.dark .post-card {
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.post-list.dark .post-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.post-list.dark .post-image-placeholder {
+  background-color: #2d2d2d;
+  color: #555;
+}
+
+.post-list.dark .post-header h3 {
+  color: #f0f0f0;
+}
+
+.post-list.dark .post-excerpt {
+  color: #bbb;
+}
+
+.post-list.dark .post-meta {
+  color: #999;
+}
+
+.post-list.dark .post-footer {
+  border-color: #333;
+}
+
+.post-list.dark .tag {
+  background: #333;
+  color: #ccc;
+}
+
+.post-list.dark .tag:hover {
+  background: #444;
+  color: #fff;
+}
+
+.post-list.dark .load-more-btn {
+  background: #333;
+  color: #eee;
+}
+
+.post-list.dark .load-more-btn:hover {
+  background: #444;
+}
+
+.post-list.dark .empty-state {
+  color: #aaa;
+}
+
+.post-list.dark .empty-state i {
+  color: #444;
+}
+
+/* Style de base pour le bouton */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 2rem;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Piste du toggle */
+.toggle-track {
+  width: 3rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Curseur du toggle */
+.toggle-thumb {
+  position: absolute;
+  top: 0.15rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease;
+}
+
+/* Icône à l'intérieur du curseur */
+.toggle-thumb i {
+  font-size: 0.7rem;
+}
+
+/* Label texte */
+.toggle-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Styles spécifiques pour le thème clair */
+.light .toggle-track {
+  background: #e0e0e0;
+}
+
+.light .toggle-thumb {
+  background: #ffffff;
+  transform: translateX(0.15rem);
+}
+
+.light .toggle-thumb i {
+  color: #f5b342;
+}
+
+/* Styles spécifiques pour le thème sombre */
+.dark .toggle-track {
+  background: #424242;
+}
+
+.dark .toggle-thumb {
+  background: #212121;
+  transform: translateX(1.6rem);
+}
+
+.dark .toggle-thumb i {
+  color: #f5f5f5;
+}
+
