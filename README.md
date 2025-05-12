@@ -47,162 +47,174 @@ Pour chaque exercice :
 ### Exercice 1 : État et Effets 
 #### Objectif : Implémenter l'affichage et la recherche de posts
 
-- [ ] 1.1 Compléter le hook `usePosts` pour récupérer les posts depuis l'API dummyjson.com
-- [ ] 1.2 Implémenter le composant `PostList` pour afficher les posts
-- [ ] 1.3 Ajouter la fonctionnalité de recherche par titre ou contenu dans `PostSearch`
-- [ ] 1.4 Documenter votre solution ici
+- [X] 1.1 Compléter le hook `usePosts` pour récupérer les posts depuis l'API dummyjson.com
+- [X] 1.2 Implémenter le composant `PostList` pour afficher les posts
+- [X] 1.3 Ajouter la fonctionnalité de recherche par titre ou contenu dans `PostSearch`
+- [X] 1.4 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 1 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+### Réalisation de l'exercice 1 :
+
+  J'ai implémenté la récupération des posts depuis l'API **dummyjson.com** en utilisant :  
+  
+  - Le hook `usePosts` avec `useState` et `useEffect` pour charger et filtrer les données.
+    
+  - Le composant `PostList` pour afficher les posts (titre + extrait).
+    
+  - La recherche via `PostSearch`, qui interroge l'API avec `/posts/search?q={term}`.
+  
+  - Gestion des états `loading` et `error` pour une meilleure expérience utilisateur.  
+
+
+
+## Captures d'écran :
+### Capture de l'affichage des posts
+![screen1](./demo/1.PNG)
+
+### 🔍 Capture de la barre de recherche fonctionnelle
+![screen2](./demo/2.PNG)
+
 
 ### Exercice 2 : Hooks Personnalisés
 #### Objectif : Créer des hooks réutilisables
 
-- [ ] 2.1 Créer le hook `useDebounce` pour optimiser la recherche
-- [ ] 2.2 Créer le hook `useLocalStorage` pour persister les préférences utilisateur
-- [ ] 2.3 Utiliser ces hooks dans l'application
-- [ ] 2.4 Documenter votre solution ici
+- [X] 2.1 Créer le hook `useDebounce` pour optimiser la recherche
+- [X] 2.2 Créer le hook `useLocalStorage` pour persister les préférences utilisateur
+- [X] 2.3 Utiliser ces hooks dans l'application
+- [X] 2.4 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 2 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+  2.1 - J'ai créé le hook useDebounce qui utilise un délai de 500ms pour éviter d'appeler l'API à chaque frappe dans le champ de recherche. Il est utilisé dans le hook usePosts pour limiter les requêtes inutiles.
+  
+  2.2 - J'ai créé le hook useLocalStorage qui permet de sauvegarder une valeur dans le localStorage. Il est utilisé dans App.jsx pour mémoriser le mode de défilement choisi par l’utilisateur.
+  
+  2.3 - Les deux hooks sont utilisés dans l'application :
+  
+  useDebounce : dans usePosts.js, pour attendre que l’utilisateur ait fini de taper avant de déclencher la recherche.
+  
+  useLocalStorage : dans App.jsx, pour enregistrer la préférence de scroll (préparation à l'exercice 4) et dans ThemeContext.js (préparation exercice 3).
+
 
 ### Exercice 3 : Optimisation et Context
 #### Objectif : Gérer le thème global et optimiser les rendus
 
-- [ ] 3.1 Créer le `ThemeContext` pour gérer le thème clair/sombre
-- [ ] 3.2 Implémenter le composant `ThemeToggle`
-- [ ] 3.3 Utiliser `useCallback` et `useMemo` pour optimiser les performances
-- [ ] 3.4 Documenter votre solution ici
+- [X] 3.1 Créer le `ThemeContext` pour gérer le thème clair/sombre
+- [X] 3.2 Implémenter le composant `ThemeToggle`
+- [X] 3.3 Utiliser `useCallback` et `useMemo` pour optimiser les performances
+- [X] 3.4 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 3 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+##### J'ai implémenté la gestion du thème et optimisé les performances de l'application :
+### ThemeContext :
+
+  Création d'un contexte global pour gérer le thème clair/sombre
+  
+  Mise en place d'un Provider autour de l'application
+  
+  Export des fonctions utilitaires via useTheme()
+
+### ThemeToggle :
+
+  Composant basique avec un switch UI
+  
+  Intégration fluide avec le contexte
+  
+  Mise à jour en temps réel de l'interface
+
+### Optimisations :
+
+  useCallback pour stabiliser les handlers (clic, recherche)
+  
+  useMemo pour les calculs coûteux (tags uniques)
+  
+  React.memo sur les composants principaux
+
+## Captures d'écran :
+### Blog page avec le bouton ThemeToggle visible
+![sceen3](./demo/3.PNG)
+
+### Blog page en mode sombre (dark mode)
+![sreen4](./demo/4.PNG)
+
+### Champ de recherche optimisé (déclenche la recherche avec un debounce)
+
+
+
 
 ### Exercice 4 : Fonctionnalités avancées
 #### Objectif : Ajouter des fonctionnalités de chargement et détail
 
-- [ ] 4.1 Implémenter le chargement infini des posts avec `useIntersectionObserver`
-- [ ] 4.2 Créer le composant `PostDetails` pour afficher les détails d'un post
-- [ ] 4.3 Ajouter la fonctionnalité de filtrage par tags
-- [ ] 4.4 Documenter votre solution ici
+- [X] 4.1 Implémenter le chargement infini des posts avec `useIntersectionObserver`
+- [X] 4.2 Créer le composant `PostDetails` pour afficher les détails d'un post
+- [X] 4.3 Ajouter la fonctionnalité de filtrage par tags
+- [X] 4.4 Documenter votre solution ici
 
-_Votre réponse pour l'exercice 4 :_
-```
-Expliquez votre solution ici
-[Ajoutez vos captures d'écran]
-```
+### ⚡ Chargement Infini
+   Technologie : useIntersectionObserver
+    
+   Fonctionnement :
+    
+  Détection automatique du bas de page
+    
+   Chargement déclenché seulement si :
+    
+  Scroll infini activé
+    
+   Posts disponibles (hasMore)
+    
+  Pas de chargement en cours
+    
+  Alternative : Bouton "Voir plus" si désactivé 
 
-## Structure détaillée du projet
+### 📱 Détails des Posts
+  Contenu :
+  
+  Titre complet + corps de l'article
+  
+  Système de réactions (likes)
+  
+  Tags cliquables (#hashtag)
+  
+  Bouton de fermeture
+  
+  Optimisation : React.memo pour performances
 
-```
-📁 ./
-├─ 📄 README.md
-├─ 📄 package.json
-├─ 📁 public/
-│  └─ 📄 index.html
-└─ 📁 src/
-   ├─ 📄 App.js               # Composant principal de l'application
-   ├─ 📄 App.css              # Styles CSS de l'application
-   ├─ 📁 components/
-   │  ├─ 📄 PostList.js       # Liste des posts
-   │  ├─ 📄 PostSearch.js     # Barre de recherche
-   │  ├─ 📄 PostDetails.js    # Détails d'un post
-   │  ├─ 📄 ThemeToggle.js    # Bouton pour changer de thème
-   │  └─ 📄 LoadingSpinner.js # Indicateur de chargement
-   ├─ 📁 hooks/
-   │  ├─ 📄 usePosts.js       # Hook pour gérer les posts
-   │  ├─ 📄 useDebounce.js    # Hook pour débouncer les valeurs
-   │  ├─ 📄 useLocalStorage.js # Hook pour gérer le localStorage
-   │  └─ 📄 useIntersectionObserver.js # Hook pour le chargement infini
-   ├─ 📁 context/
-   │  └─ 📄 ThemeContext.js   # Contexte pour le thème
-   ├─ 📄 index.css
-   └─ 📄 index.js
-```
+### 🔍 Filtrage par Tags
+  Interaction :
+  
+  Cliquez sur un tag pour filtrer
+  
+  Tag stocké dans selectedTag
+  
+  Bouton de réinitialisation
+  
+  Compatibilité : Fonctionne avec le scroll infini
+
+### ⚙️ Optimisations Clés
+  useCallback : Stabilise les handlers d'événements
+  
+  useMemo : Calcule les tags uniques efficacement
+  
+  React.memo : Évite les rendus inutiles
+
+## Captures d'écran :
+
+### ⚡ Chargement infini des posts (scroll jusqu’en bas)
+![sceen6](./demo/5.PNG)
+
+### 📱 Détails d’un post sélectionné avec réactions et tags
+![sreenn7](./demo/6.PNG)
+
+### 🔍 Filtrage des posts par tag sélectionné (#history)
+![screen8](./demo/7.PNG)
+
+## ✅  Résultat final
+Une application fluide avec chargement progressif, navigation détaillée, et filtrage dynamique par tags
+
+Une expérience optimisée côté utilisateur avec un code modulaire et réutilisable
+
+![screen9](./demo/8.PNG)
+
+
 
 ## Ressources utiles
-
-- Documentation de l'API: [https://dummyjson.com/docs/posts](https://dummyjson.com/docs/posts)
-- Documentation React Hooks: [https://fr.reactjs.org/docs/hooks-intro.html](https://fr.reactjs.org/docs/hooks-intro.html)
-- Guide sur les hooks personnalisés: [https://fr.reactjs.org/docs/hooks-custom.html](https://fr.reactjs.org/docs/hooks-custom.html)
-
-## Rendu
-
-- Ajoutez l'URL de votre dépôt Github dans **Classroom** et envoyez la réponse dès le démarrage de votre projet.
-- Les push doivent se faire au fur et à mesure que vous avancez dans votre projet.
-- Le README.md doit être à jour avec vos réponses et captures d'écran.
-- Chaque exercice doit faire l'objet d'au moins un commit avec un message mentionnant le numéro de l'exercice.
-
----
-
-# Documentation de l'API dummyjson - Posts
-
-Pour réaliser ce TP, vous utiliserez l'API dummyjson.com qui fournit des données fictives de posts de blog. Voici les points d'entrée que vous utiliserez :
-
-## Points d'entrée API
-
-### Récupérer tous les posts
-```
-GET https://dummyjson.com/posts
-```
-
-Paramètres de requête optionnels :
-- `limit` : nombre de posts à récupérer (défaut: 30)
-- `skip` : nombre de posts à sauter (pour la pagination)
-
-Exemple : `https://dummyjson.com/posts?limit=10&skip=10`
-
-### Récupérer un post spécifique
-```
-GET https://dummyjson.com/posts/{id}
-```
-
-Exemple : `https://dummyjson.com/posts/1`
-
-### Rechercher des posts
-```
-GET https://dummyjson.com/posts/search?q={terme}
-```
-
-Exemple : `https://dummyjson.com/posts/search?q=love`
-
-### Récupérer les posts par tag
-```
-GET https://dummyjson.com/posts/tag/{tag}
-```
-
-Exemple : `https://dummyjson.com/posts/tag/history`
-
-## Format de réponse
-
-### Liste de posts
-
-```json
-{
-  "posts": [
-    {
-      "id": 1,
-      "title": "His mother had always taught him",
-      "body": "His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or whose decisions had led them astray.",
-      "userId": 9,
-      "tags": ["history", "american", "crime"],
-      "reactions": 2
-    },
-    ...
-  ],
-  "total": 150,
-  "skip": 0,
-  "limit": 30
-}
-```
 
 ### Post unique
 
